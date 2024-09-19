@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <!-- Bootstrap css  -->
+    <link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <!--My Css -->
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body style="background: #303030">
+
+<nav id="nav_main" class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Lernwortspiel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            </ul>
+
+            <div class="d-flex mx-0 mx-lg-5 my-4 my-lg-0 position-relative" role="search">
+                <input id="search" class="form-control  bg-dark-subtle" type="search" placeholder="Search" aria-label="Search">
+                <ul class="list-group mt-1" id="suggestions"></ul>
+            </div>
+
+            <div class="row d-flex justify-content-lg-center">
+            <div class="col text-center user_info mx-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#cccccc" class="bi bi-person-circle mb-1" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+                <span id="user_credentials" class="d-block" th:text="${user_credentials}"></span>
+            </div>
+            <div class="col d-flex align-items-center" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
+                <button class="btn btn-outline-primary" type="button"><a href="/admin/" style="text-decoration: none; color: inherit;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+                        <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                    </svg>
+                </a></button>
+            </div>
+            <form class="col d-flex align-items-center justify-content-end" method="post" th:action="@{/logout}">
+                <button class="btn btn-outline-danger w-100" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                </button>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!--Title and book list button-->
+    <div class="container-fluid">
+        <div class="row d-flex align-items-center">
+            <div class="col-2 col-lg-1  text-center">
+                <button id="show_books" class="btn p-0 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" class="bi bi-journals" viewBox="0 0 16 16">
+                        <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+                        <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="col-10 col-lg-11  text-center">
+                <h3 id="main_title">Wählen Sie bitte das Thema</h3>
+            </div>
+        </div>
+    </div>
+
+
+<!--Card-->
+<div class="container-fluid mt-3 mt-lg-5">
+    <div class="row justify-content-center">
+        <div class="col-4 col-sm-4 d-flex justify-content-start d-none d-lg-flex">
+            <div class="word_list">
+                <h3 id="word_list_title" class="text-center">Wörter</h3>
+                <div class="scroll-box" style="max-height:344px; min-width: 200px;">
+                    <ul class="list-group">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-4  d-flex justify-content-center content-container">
+            <!-- Card -->
+            <div class="flip-card" id="flipCard">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front d-flex align-items-center justify-content-center">
+                        <h2 id="word">Herzlich willkommen</h2>
+                    </div>
+                    <div class="flip-card-back d-flex align-items-center justify-content-center">
+                        <h2 id="word_trs">Добро пожаловать</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 col-sm-4 d-flex justify-content-md-center align-items-center d-none d-lg-flex">
+            <div class="counter">
+                <span id="current_word_index_html"></span>
+                <span>/</span>
+                <span id="current_word_lengths_html"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="w-100 d-flex justify-content-center mt-2 mt-lg-5">
+    <div class="align-content-center mx-5">
+        <button id="prevCard" class="arrow" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#cccccc" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="align-content-center mx-5">
+        <button id="nextCard" class="arrow" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#cccccc" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Offcanvas меню -->
+<div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <button id="offcanvas_book_list_button" class="btn btn-outline-secondary" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#cccccc"  class="bi bi-journals" viewBox="0 0 16 16">
+                <path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+                <path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+            </svg>
+        </button>
+        <div id="offcanvas_title">Books</div>
+
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <!-- Breadcrumbs -->
+        <nav class="offcanvas_nav_menu" aria-label="breadcrumb">
+            <button id="button_back" type="button" class="btn btn-outline-secondary p-1 mx-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="#cccccc" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                </svg>
+            </button>
+            <ol class="breadcrumb my-2 p-1"></ol>
+        </nav>
+
+        <div class="book_list">
+            <ul class="list-group">
+
+                <!-- Dynamic content -->
+
+            </ul>
+    </div>
+</div>
+
+<!-- Jquery -->
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+<!--Bootstrap JS-->
+<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<!--My JS-->
+<script src="/js/home.js"></script>
+</body>
+</html>

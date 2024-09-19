@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&display=swap');
+
+#nav_main{
+    border-bottom: 1px solid #727272;
+}
+
+.navbar-brand{
+    font-family: "Kaushan Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.2rem;
+    color: #d21c2e !important;
+    text-decoration: none;
+    padding: 0;
+}
+
+.nav-link{
+    color: #cccccc;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #3e3e3e;
+}
+
+.navbar-toggler{
+    background: #cccccc;
+}
+.navbar-toggler-icon {
+    background-color: #cccccc;
+}
+
+.user_info, .offcanvas-header, .offcanvas-body{
+    color: #cccccc;
+}
+
+.offcanvas-header{
+    border-bottom: 1px solid #787878;
+}
+
+.offcanvas-body{
+    padding: 0;
+}
+#show_books{
+    fill: #cccccc;
+    transition: transform 0.3s ease; /* плавная анимация */
+
+}
+
+#show_books:hover{
+    transform: scale(1.1); /* увеличение размера на 10% */
+    fill: #d21c2e ;
+}
+
+.list-group-item{
+    border:0;
+    background-color: #212529;
+    color: #cccccc;
+    border-bottom: 1px solid #787878;
+    font-size: 1.3rem;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover{
+    background-color: #343a40; /* Darker background on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.list-group{
+    border-radius:0;
+    cursor: pointer;
+
+}
+
+.btn-close{
+    background-color: #d21c2e;
+}
+
+.breadcrumb-item.active{
+    color: #d21c2e;
+}
+
+.breadcrumb-item+.breadcrumb-item::before{
+    color: #dadada;
+}
+
+.breadcrumb-link{
+    text-decoration: none;
+    color: #cccccc;
+}
+
+#offcanvas_title{
+    margin-left: 20px;
+    color: #cccccc;
+    font-size: 1.6rem;
+}
+
+.offcanvas_nav_menu{
+    display: flex;
+    align-items: center;
+}
+
+#button_back{display: none;}
+
+#main_title{
+    margin-right: 160px;
+    color: #d21c2e;
+    font-size: 2rem;
+    font-family: "Bungee Tint", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@media (max-width: 576px) {
+    #main_title {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 450px;
+    height: 400px;
+    perspective: 1000px;
+}
+
+.flip-card:hover {
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
+
+.flip-card-front {
+    background-color: #f0ec06;
+    color: black;
+}
+
+.flip-card-back {
+    background-color: #2980b9;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.flip-card.flip .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.content-container {
+    margin-top: 5rem;
+    justify-content: center;
+}
+
+.flip-card.swipe-left {
+    animation: swipeLeft 0.6s forwards;
+}
+
+.flip-card.swipe-right {
+    animation: swipeRight 0.6s forwards;
+}
+
+.flip-card.new-card {
+    animation: appearLeft 0.6s forwards;
+}
+
+.flip-card.new-card-right {
+    animation: appearRight 0.6s forwards;
+}
+
+@keyframes swipeLeft {
+    0% {
+        transform: translateX(0) rotateX(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) rotateX(-30deg); /* Дугоподобный эффект */
+        opacity: 0;
+    }
+}
+
+@keyframes swipeRight {
+    0% {
+        transform: translateX(0) rotateX(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotateX(30deg); /* Дугоподобный эффект */
+        opacity: 0;
+    }
+}
+
+@keyframes appearLeft {
+    0% {
+        transform: translateX(100%) rotateX(30deg); /* Дугоподобный эффект */
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes appearRight {
+    0% {
+        transform: translateX(-100%) rotateX(-30deg); /* Дугоподобный эффект */
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+
+
+.arrow {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    padding: 0;
+    width: 150px;
+    height: 150px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    overflow: hidden; /* Чтобы скрыть выходящие за границы эффекты */
+}
+
+.arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(135, 135, 135, 0.4);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.arrow:hover::before {
+    opacity: 1;
+}
+
+.arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 123, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    transition: transform 0.6s, opacity 0.6s;
+    z-index: -1;
+}
+
+.arrow:active::after {
+    transform: translate(-50%, -50%) scale(8);
+    opacity: 0;
+    transition: transform 0.6s, opacity 0.6s;
+}
+
+.arrow svg {
+    transition: fill 0.3s ease-in-out;
+}
+
+.arrow:hover svg {
+    fill: whitesmoke;
+}
+@media (max-width: 576px) {
+    .arrow{
+        width: 100px;
+        height: 100px;
+    }
+    .arrow::before{
+        width: 130px;
+        height: 130px;
+    }
+
+}
+
+.content-container{
+    margin: 0;
+}
+
+.word_list{
+    border: 1px solid #727272;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(227, 227, 227, 0.1);
+    margin-left: 50px;
+}
+.scroll-box {
+    overflow-y: auto;
+}
+
+/* Удаление стандартных полос прокрутки (если нужно) */
+.scroll-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    background-color: #918787;
+    border-radius: 0 5px 5px 0;
+}
+
+.scroll-box::-webkit-scrollbar-track {
+    background-color: #c9d8cf;
+    border-radius: 0 5px 5px 0;
+}
+
+#word_list_title{
+    padding: 8px 0;
+    color: #cccccc;
+    margin-bottom: 5px;
+}
+
+.counter{
+    margin-right: 50px;
+    display: none;
+    font-size: 3rem;
+    color:#cccccc;
+}
+
+.word_list{
+    display: none;
+}
+
+#word, #word_trs{
+    padding: 0 10px;
+    font-size: 1.7rem;
+}
+
+#suggestions {
+    display: none;
+    top: 35px;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+#suggestions li {
+    cursor: pointer;
+}
+
+#suggestions li:hover {
+    background-color: #f8f9fa;
+}
+
+#user_credentials{
+    width: max-content;
+}
+
+@media (max-width: 576px) {
+    #user_credentials{
+        width: auto;
+    }
+}
