@@ -28,7 +28,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/lernwortspiel.sql # Подключаем дамп
+      - ./lernwortspiel.sql:/docker-entrypoint-initdb.d/lernwortspiel.sql # Подключаем дамп
 
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
