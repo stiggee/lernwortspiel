@@ -16,7 +16,8 @@ services:
       SPRING_MAIL_PASSWORD: Streamkill280211
       SPRING_MAIL_PROTOCOL: smtps
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: mysql:8.0
@@ -28,3 +29,9 @@ services:
       - "3306:3306"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/lernwortspiel.sql # Подключаем дамп
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
