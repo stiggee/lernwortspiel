@@ -8,10 +8,10 @@ WORKDIR /app
 COPY target/lernwortspiel-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Копируем TLS сертификаты
-COPY ssl/keystore.p12 /root/ssl/keystore.p12
+COPY ssl/keystore.p12 /ssl/keystore.p12
 
 # Открываем порт, который использует Spring Boot (по умолчанию 8080)
 EXPOSE 443
-
+EXPOSE 80
 # Запускаем приложение
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
